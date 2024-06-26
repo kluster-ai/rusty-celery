@@ -24,8 +24,9 @@ path = "src/lib.rs"
 name = "celery_app"
 
 [dependencies]
-base64 = "0.21"
+base64 = "0.22.1"
 chrono = { version = "0.4.30", features = ["serde"] }
+tokio-rustls = "0.26.0"
 tokio = { version = "1.25", features = ["full"]}
 tokio-stream = "0.1.9"
 serde = { version = "1.0", features = ["derive"]}
@@ -46,7 +47,7 @@ colored = "2"
 once_cell = { version = "1.17" }
 globset = "0.4"
 hostname = "0.3"
-redis = { version = "0.22", features=["connection-manager", "tokio-comp"] }
+redis = { version = "0.25.4", features=["connection-manager", "tokio-rustls-comp","tls-rustls"] }
 tokio-executor-trait = "2.1"
 tokio-reactor-trait = "1.1"
 futures-lite = "1.12"
