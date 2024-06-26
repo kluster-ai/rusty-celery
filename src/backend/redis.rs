@@ -49,7 +49,7 @@ impl BackendBuilder for RedisBackendBuilder {
             taskmeta_collection,
         } = *self;
 
-        info!("Connecting to {}", backend_url);
+        log::info!("Connecting to {}", backend_url);
         let client = Client::open(backend_url.as_str())
             .map_err(|_| BackendError::InvalidBrokerUrl(backend_url))?;
 
