@@ -120,6 +120,7 @@ pub fn backend_builder_from_url(backend_url: impl AsRef<str>) -> Box<dyn Backend
     let backend_url = backend_url.as_ref();
     match backend_url.split_once("://") {
         Some(("redis", _)) => Box::new(RedisBackendBuilder::new(backend_url)),
+        Some(("rediss", _)) => Box::new(RedisBackendBuilder::new(backend_url)),        
         _ => panic!("Unsupported backend"),
     }
 }
