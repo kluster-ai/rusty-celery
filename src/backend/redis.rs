@@ -49,8 +49,10 @@ impl BackendBuilder for RedisBackendBuilder {
             taskmeta_collection,
         } = *self;
 
+        info!("Connecting to {}", backend_url);
         let client = Client::open(backend_url.as_str())
             .map_err(|_| BackendError::InvalidBrokerUrl(backend_url))?;
+
 
         log::info!("Creating tokio manager");
         let manager = client.get_tokio_connection_manager().await?;
