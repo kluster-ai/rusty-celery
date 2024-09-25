@@ -288,7 +288,7 @@ impl Broker for AMQPBroker {
         Ok(())
     }
 
-    async fn send(&self, message: &Message, queue: &str) -> Result<(), BrokerError> { // BOOK:
+    async fn send(&self, message: &Message, queue: &str) -> Result<(), BrokerError> {
         let properties = message.delivery_properties();
         debug!("Sending AMQP message with: {:?}", properties);
         self.produce_channel
