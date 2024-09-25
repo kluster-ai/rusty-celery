@@ -337,6 +337,11 @@ impl Broker for AMQPBroker {
         Ok(())
     }
 
+    async fn is_connected(&self) -> bool {
+        let conn = self.conn.lock().await;
+        conn.status().connected()
+    }
+
     async fn close(&self) -> Result<(), BrokerError> {
         let consume_channel = self.consume_channel.write().await;
         let produce_channel = self.produce_channel.write().await;

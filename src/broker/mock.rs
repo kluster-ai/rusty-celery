@@ -67,6 +67,10 @@ impl MockBroker {
 
 #[async_trait]
 impl Broker for MockBroker {
+    async fn is_connected(&self) -> bool {
+        true
+    }
+
     fn safe_url(&self) -> String {
         "mock://fake-url:8000/".into()
     }

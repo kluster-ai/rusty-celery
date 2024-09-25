@@ -405,6 +405,15 @@ impl Broker for RedisBroker {
         }
     }
 
+    async fn is_connected(&self) -> bool {
+        let mut conn = self.manager.clone();
+        let rez: Result<String, RedisError> = redis::cmd("PING").query_async(&mut conn).await;
+        match rez {
+            Ok(rez) => rez.eq("PONG"),
+            Err(_) => false,
+        }
+    }
+
     async fn reconnect(&self, connection_timeout: u32) -> Result<(), BrokerError> {
         // Stop additional task fetching
         let old_prefetch_count = self.prefetch_count.fetch_and(0, Ordering::SeqCst);

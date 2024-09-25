@@ -345,6 +345,13 @@ impl Celery {
             message.task_id(),
             queue,
         );
+
+
+        if !self.broker.is_connected().await {
+            info!("Reconnecting to broker...");
+            self.broker.reconnect(self.broker_connection_timeout).await?;
+        }
+
         self.broker.send(&message, queue).await?;
 
         if let Some(backend) = &self.backend {

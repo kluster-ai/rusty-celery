@@ -51,6 +51,9 @@ pub trait Broker: Send + Sync {
     /// redacted.
     fn safe_url(&self) -> String;
 
+    /// Check if the broker is connected.
+    async fn is_connected(&self) -> bool;
+
     /// Consume messages from a queue.
     ///
     /// If the connection is successful, this should return a unique consumer tag and a
