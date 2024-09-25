@@ -288,7 +288,7 @@ impl Broker for AMQPBroker {
         Ok(())
     }
 
-    async fn send(&self, message: &Message, queue: &str) -> Result<(), BrokerError> {
+    async fn send(&self, message: &Message, queue: &str) -> Result<(), BrokerError> { // BOOK:
         let properties = message.delivery_properties();
         debug!("Sending AMQP message with: {:?}", properties);
         self.produce_channel
@@ -335,6 +335,11 @@ impl Broker for AMQPBroker {
             self.set_prefetch_count(new_count).await?;
         }
         Ok(())
+    }
+
+    async fn is_connected(&self) -> bool {
+        let conn = self.conn.lock().await;
+        conn.status().connected()
     }
 
     async fn close(&self) -> Result<(), BrokerError> {
