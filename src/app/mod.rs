@@ -541,11 +541,12 @@ impl Celery {
             if let Err(err) = result {
                 match err {
                     CeleryError::BrokerError(broker_err) => {
-                        if broker_err.is_connection_error() {
-                            error!("Broker connection failed");
-                        } else {
-                            return Err(CeleryError::BrokerError(broker_err));
-                        }
+                        error!("Broker connection failed: {:#?}", broker_err);
+                        //if broker_err.is_connection_error() {
+                        //    error!("Broker connection failed"); // BOOKMARK:
+                        // } else {
+                        //     return Err(CeleryError::BrokerError(broker_err));
+                        //}
                     }
                     _ => return Err(err),
                 };
